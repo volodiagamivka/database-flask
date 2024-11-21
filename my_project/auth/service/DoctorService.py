@@ -19,20 +19,32 @@ class DoctorService:
     def delete_doctor(self, doctor_id):
         return self.doctor_dao.delete(doctor_id)
 
-    def get_doctors_with_hospital(self):
+    def get_doctors_with_hospital(self, hospital_id):
 
         doctors = self.doctor_dao.get_all()
-        result = []
+        hospital_data = None
+
+
         for doctor in doctors:
-            result.append({
-                'doctors_id': doctor.doctors_id,
-                'first_name': doctor.first_name,
-                'last_name': doctor.last_name,
-                'specialization': doctor.specialization,
-                'hospital': {
-                    'hospital_id': doctor.hospital.hospital_id,
-                    'name': doctor.hospital.name,
-                    'address': doctor.hospital.address
-                }
-            })
-        return result
+            if doctor.hospital.hospital_id == hospital_id:
+                if hospital_data is None:
+                    hospital_data = {
+                        "hospital_id": doctor.hospital.hospital_id,
+                        "name": doctor.hospital.name,
+                        "address": doctor.hospital.address,
+                        "doctors": []
+                    }
+
+                hospital_data["doctors"].append({
+                    "doctor_id": doctor.doctors_id,
+                    "first_name": doctor.first_name,
+                    "last_name": doctor.last_name,
+                    "specialization": doctor.specialization
+                })
+
+
+
+        if hospital_data is None:
+            return {"error": "Hospital not found or no doctors available for this hospital."}
+
+        return hospital_data

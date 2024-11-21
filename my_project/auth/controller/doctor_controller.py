@@ -35,6 +35,8 @@ def delete_doctor(doctor_id):
         return jsonify({'message': 'Doctor deleted successfully'}), 200
     return jsonify({'message': 'Doctor not found'}), 404
 
-def get_doctors_with_hospital():
-    doctors_with_hospital = doctor_service.get_doctors_with_hospital()
-    return jsonify(doctors_with_hospital), 200
+def get_doctors_with_hospital(hospital_id):
+    doctors_by_hospital = doctor_service.get_doctors_with_hospital(hospital_id)
+    if doctors_by_hospital:
+        return jsonify(doctors_by_hospital), 200
+    return jsonify({'message': 'No doctors found for the given hospital'}), 404
