@@ -14,11 +14,18 @@ class PatientService:
 
 
     def create_patient(self, data):
-        return self.patient_dao.create(data)
+        result = self.patient_dao.create(data)
+        if isinstance(result, dict) and 'error' in result:
+            return result
+        return result
 
 
     def update_patient(self, patient_id, data):
-        return self.patient_dao.update(patient_id, data)
+        result = self.patient_dao.update_patient(patient_id, data)
+        if isinstance(result, dict) and 'error' in result:
+            return result
+        return result
+
 
 
     def delete_patient(self, patient_id):
@@ -37,3 +44,6 @@ class PatientService:
                 'medications': medications
             })
         return result
+
+    def insert_dummy_patients(self):
+        return self.patient_dao.insert_dummy_patients()

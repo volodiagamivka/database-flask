@@ -7,10 +7,9 @@ class Doctor(db.Model):
     first_name = db.Column(db.String(45), nullable=False)
     last_name = db.Column(db.String(45), nullable=False)
     specialization = db.Column(db.String(45), nullable=False)
-    hospital_id = db.Column(db.Integer, db.ForeignKey('hospitals.hospital_id'), nullable=False)
+    hospital_id = db.Column(db.Integer, db.ForeignKey('hospitals.hospital_id'), nullable=False)  # ForeignKey
 
-
-    hospital = db.relationship('Hospital', back_populates='doctors')
+    hospital = db.relationship('Hospital', back_populates='doctors')  # Зв'язок із Hospital
 
     def to_dict(self):
         return {

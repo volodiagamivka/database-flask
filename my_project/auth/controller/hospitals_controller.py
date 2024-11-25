@@ -16,23 +16,37 @@ def get_hospital_by_id(hospital_id):
     return jsonify({'message': 'Hospital not found'}), 404
 
 
-def create_hospital():
-    data = request.json
-    new_hospital = hospital_service.create_hospital(data)
-    return jsonify(new_hospital.to_dict()), 201
-
-
 def update_hospital(hospital_id):
     data = request.json
-    updated_hospital = hospital_service.update_hospital(hospital_id, data)
-    if updated_hospital:
-        return jsonify(updated_hospital.to_dict()), 200
+    result = hospital_service.update_hospital(hospital_id, data)
+    if isinstance(result, dict) and 'error' in result:
+        return jsonify(result), 400  # Повертаємо помилку тригера
+    if result:
+        return jsonify({'message': 'Hospital updated successfully', 'hospital': result.to_dict()}), 200
     return jsonify({'message': 'Hospital not found'}), 404
 
-
 def delete_hospital(hospital_id):
-    success = hospital_service.delete_hospital(hospital_id)
-    if success:
+    result = hospital_service.delete_hospital(hospital_id)
+    if isinstance(result, dict) and 'error' in result:
+        return jsonify(result), 400
+    if result:
         return jsonify({'message': 'Hospital deleted successfully'}), 200
     return jsonify({'message': 'Hospital not found'}), 404
 
+def insert_hospital():
+    data = request.json
+    result = hospital_service.insert_hospital(data)
+    if isinstance(result, dict) and 'error' in result:
+        return jsonify(result), 400
+    return jsonify({'message': 'Hospital added successfully'}), 201
+
+
+def create_databases():
+    response = hospital_service.create_databases()
+
+    # Перевіряємо, чи є 'response' словником і чи містить він ключ 'error'
+    if isinstance(response, dict) and 'error' in response:
+        return jsonify(response), 500
+
+    # Якщо все в порядку, повертаємо успішну відповідь
+    return jsonify(response), 200
