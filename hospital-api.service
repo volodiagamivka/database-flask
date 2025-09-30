@@ -1,0 +1,19 @@
+[Unit]
+Description=Hospital Management API
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/database-flask
+Environment=PATH=/home/ubuntu/database-flask/venv/bin
+Environment=FLASK_ENV=production
+Environment=DB_HOST=your-db-host
+Environment=DB_USER=your-db-user
+Environment=DB_PASSWORD=your-db-password
+Environment=DB_NAME=your-db-name
+ExecStart=/home/ubuntu/database-flask/venv/bin/gunicorn --bind 0.0.0.0:5000 wsgi:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
