@@ -21,10 +21,12 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     FLASK_ENV = 'development'
+    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{os.environ.get("DB_USER", "root")}:{os.environ.get("DB_PASSWORD", "password")}@{os.environ.get("DB_HOST", "localhost")}/{os.environ.get("DB_NAME", "hospitalss")}'
 
 class ProductionConfig(Config):
     DEBUG = False
     FLASK_ENV = 'production'
+    SQLALCHEMY_DATABASE_URI = f'mysql+pymysql://{os.environ.get("DB_USER", "root")}:{os.environ.get("DB_PASSWORD", "password")}@{os.environ.get("DB_HOST", "localhost")}/{os.environ.get("DB_NAME", "hospitalss")}'
 
 config = {
     'development': DevelopmentConfig,
