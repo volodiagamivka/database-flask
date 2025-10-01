@@ -4,7 +4,15 @@ Database initialization script
 """
 import os
 import sys
-from app import app, db
+from app import app
+from my_project.db_init import db
+
+# Import all models to ensure they are registered
+from my_project.auth.models.patient import Patient
+from my_project.auth.models.doctors import Doctor
+from my_project.auth.models.hospitals import Hospital
+from my_project.auth.models.medication import Medication
+from my_project.auth.models.patient_medications_model import PatientMedications
 
 def init_db():
     """Initialize the database"""
@@ -16,9 +24,15 @@ def init_db():
             
             # You can add initial data here if needed
             # Example:
-            # from my_project.auth.models.patient import Patient
             # if not Patient.query.first():
-            #     initial_patient = Patient(name="Test Patient", age=30, diagnosis="Test")
+            #     initial_patient = Patient(
+            #         first_name="Test", 
+            #         last_name="Patient", 
+            #         date_of_birthday="1990-01-01",
+            #         gender="Male",
+            #         address="Test Address",
+            #         phone="1234567890"
+            #     )
             #     db.session.add(initial_patient)
             #     db.session.commit()
             #     print("Initial data added!")
