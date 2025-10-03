@@ -36,7 +36,10 @@ def create_app():
     )
     
     # Імпортуємо всі моделі для правильного роботи relationships
-    from my_project.auth.models import *
+    from my_project.auth.models import (
+        Patient, Doctor, Hospital, Department, 
+        Medication, PatientMedications, PatientStatus
+    )
     
     # Імпортуємо та реєструємо namespaces
     from my_project.auth.route.patient_namespace import patient_ns
