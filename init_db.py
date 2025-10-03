@@ -8,7 +8,7 @@
 """
 import sys
 from app import app
-from database import db
+from my_project.db_init import db
 
 def init_database_sqlalchemy():
     """Створює всі таблиці через SQLAlchemy"""
