@@ -32,7 +32,10 @@ def test_connection():
             password=db_password,
             database=db_name,
             port=db_port,
-            connect_timeout=10
+            connect_timeout=10,
+            ssl_disabled=False,
+            ssl_verify_cert=False,
+            ssl_verify_identity=False
         )
         
         print("✅ Підключення успішне!")
