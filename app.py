@@ -9,17 +9,19 @@ from my_project.auth.route.department_route import department_bp
 from my_project.auth.route.aggregate_route import aggregate_bp
 from my_project.auth.route.historylog_route import history_log_bp
 from my_project.auth.route.patient_tracker_route import patient_tracker_bp
+
 app = create_app()
 
-app.register_blueprint(patient_bp)
-app.register_blueprint(medication_bp)
-app.register_blueprint(patient_medications_bp)
-app.register_blueprint(doctor_bp)
-app.register_blueprint(hospital_bp)
-app.register_blueprint(department_bp)
-app.register_blueprint(aggregate_bp)
-app.register_blueprint(history_log_bp)
-app.register_blueprint(patient_tracker_bp)
+# Реєструємо blueprints з правильним префіксом
+app.register_blueprint(patient_bp, url_prefix='/api/v1')
+app.register_blueprint(medication_bp, url_prefix='/api/v1')
+app.register_blueprint(patient_medications_bp, url_prefix='/api/v1')
+app.register_blueprint(doctor_bp, url_prefix='/api/v1')
+app.register_blueprint(hospital_bp, url_prefix='/api/v1')
+app.register_blueprint(department_bp, url_prefix='/api/v1')
+app.register_blueprint(aggregate_bp, url_prefix='/api/v1')
+app.register_blueprint(history_log_bp, url_prefix='/api/v1')
+app.register_blueprint(patient_tracker_bp, url_prefix='/api/v1')
 
 if __name__ == '__main__':
     app.run(debug=True)
