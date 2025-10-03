@@ -25,7 +25,7 @@ def create_app():
 
     db.init_app(app)
     
-  
+    # Створюємо Flask-RESTX API
     api = Api(
         app, 
         version='1.0',
@@ -34,5 +34,9 @@ def create_app():
         doc='/swagger/',
         prefix='/api/v1'
     )
+    
+    # Імпортуємо та реєструємо namespaces
+    from my_project.auth.route.patient_namespace import patient_ns
+    api.add_namespace(patient_ns)
 
     return app
