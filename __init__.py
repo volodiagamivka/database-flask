@@ -35,6 +35,9 @@ def create_app():
         prefix='/api/v1'
     )
     
+    # Імпортуємо всі моделі для правильного роботи relationships
+    from my_project.auth.models import *
+    
     # Імпортуємо та реєструємо namespaces
     from my_project.auth.route.patient_namespace import patient_ns
     api.add_namespace(patient_ns)

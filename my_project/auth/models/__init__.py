@@ -1,5 +1,20 @@
+"""
+Імпорт всіх моделей для правильного роботи SQLAlchemy relationships
+"""
 from .patient import Patient
-from .patient_status_model import PatientStatus
-from .patient_medications_model import PatientMedications
+from .doctors import Doctor
+from .hospitals import Hospital
 from .department import Department
-# Додай інші моделі, якщо вони є
+from .medication import Medication
+from .patient_medications_model import PatientMedications
+from .patient_status_model import PatientStatus
+
+__all__ = [
+    'Patient',
+    'Doctor', 
+    'Hospital',
+    'Department',
+    'Medication',
+    'PatientMedications',
+    'PatientStatus'
+]
