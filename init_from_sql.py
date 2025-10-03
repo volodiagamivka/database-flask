@@ -31,7 +31,7 @@ def init_database_from_sql():
             password=db_password,
             port=db_port,
             charset='utf8mb4',
-            ssl={'ssl-mode': 'require'}
+            ssl_disabled=False
         )
         
         with connection.cursor() as cursor:

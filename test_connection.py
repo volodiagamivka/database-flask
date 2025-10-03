@@ -33,7 +33,7 @@ def test_connection():
             database=db_name,
             port=db_port,
             connect_timeout=10,
-            ssl={'ssl-mode': 'require'}
+            ssl_disabled=False
         )
         
         print("✅ Підключення успішне!")
