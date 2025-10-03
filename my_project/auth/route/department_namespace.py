@@ -1,13 +1,8 @@
-"""
-Flask-RESTX namespace для відділень
-"""
 from flask_restx import Namespace, Resource, fields
 from my_project.auth.service.DepartmentService import DepartmentService
 
-# Створюємо namespace
 department_ns = Namespace('departments', description='Операції з відділеннями')
 
-# Моделі для Swagger документації
 department_model = department_ns.model('Department', {
     'department_id': fields.Integer(readonly=True, description='ID відділення'),
     'department_name': fields.String(required=True, description='Назва відділення'),
