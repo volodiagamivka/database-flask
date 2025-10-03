@@ -43,6 +43,13 @@ def create_app():
     
     # Імпортуємо та реєструємо namespaces
     from my_project.auth.route.patient_namespace import patient_ns
+    from my_project.auth.route.hospital_namespace import hospital_ns
+    from my_project.auth.route.doctor_namespace import doctor_ns
+    from my_project.auth.route.department_namespace import department_ns
+    
     api.add_namespace(patient_ns)
+    api.add_namespace(hospital_ns)
+    api.add_namespace(doctor_ns)
+    api.add_namespace(department_ns)
 
     return app
