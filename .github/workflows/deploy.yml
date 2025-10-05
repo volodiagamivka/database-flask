@@ -34,4 +34,4 @@ jobs:
             echo "Checking service status..."
             sudo systemctl status hospital-app --no-pager
 
-            echo "🎉 Deployment completed!"
+            echo " Deployment completed!"

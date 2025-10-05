@@ -90,13 +90,3 @@ class Patient(Resource):
             patient_ns.abort(404, 'Пацієнт не знайдений')
         return {'message': 'Пацієнт успішно видалений'}, 200
 
-@patient_ns.route('/dummy')
-class PatientDummy(Resource):
-    @patient_ns.doc('insert_dummy_patients')
-    def post(self):
-        """Додати тестові дані пацієнтів"""
-        try:
-            patient_service.insert_dummy_patients()
-            return {'message': 'Тестові пацієнти успішно додані'}, 201
-        except Exception as e:
-            patient_ns.abort(500, str(e))
