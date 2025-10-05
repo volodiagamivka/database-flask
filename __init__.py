@@ -4,14 +4,12 @@ from my_project.db_init import db
 import os
 from dotenv import load_dotenv
 
-# Завантажуємо змінні середовища з .env файлу
 load_dotenv()
 
 
 def create_app():
     app = Flask(__name__)
 
-    # Отримуємо дані підключення з environment variables
     db_host = os.getenv('DB_HOST', 'localhost')
     db_user = os.getenv('DB_USER', 'root')
     db_password = os.getenv('DB_PASSWORD', 'password')
@@ -25,7 +23,6 @@ def create_app():
 
     db.init_app(app)
     
-    # Створюємо Flask-RESTX API
     api = Api(
         app, 
         version='1.0',
@@ -35,13 +32,11 @@ def create_app():
         prefix='/api/v1'
     )
     
-    # Імпортуємо всі моделі для правильного роботи relationships
     from my_project.auth.models import (
         Patient, Doctor, Hospital, Department, 
         Medication, PatientMedications, PatientStatus
     )
     
-    # Імпортуємо та реєструємо namespaces
     from my_project.auth.route.patient_namespace import patient_ns
     from my_project.auth.route.hospital_namespace import hospital_ns
     from my_project.auth.route.doctor_namespace import doctor_ns
