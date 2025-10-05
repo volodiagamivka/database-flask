@@ -21,17 +21,17 @@ jobs:
           key: ${{ secrets.AZURE_SSH_KEY }}
           port: 22
           script: |
-            echo "🚀 Starting deployment..."
+            echo " Starting deployment..."
             cd ~/database-flask
 
-            echo "📥 Pulling latest changes..."
+            echo " Pulling latest changes..."
             git fetch origin
             git reset --hard origin/lab5
 
-            echo "🔄 Restarting service..."
+            echo " Restarting service..."
             sudo systemctl restart hospital-app
 
-            echo "✅ Checking service status..."
+            echo "Checking service status..."
             sudo systemctl status hospital-app --no-pager
 
             echo "🎉 Deployment completed!"
