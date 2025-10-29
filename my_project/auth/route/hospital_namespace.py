@@ -4,10 +4,8 @@ Flask-RESTX namespace для лікарень
 from flask_restx import Namespace, Resource, fields
 from my_project.auth.service.HospitalService import HospitalService
 
-# Створюємо namespace
 hospital_ns = Namespace('hospitals', description='Операції з лікарнfdями')
 
-# Моделі для Swagger документації
 hospital_model = hospital_ns.model('Hospital', {
     'hospital_id': fields.Integer(readonly=True, description='ID лікарні'),
     'name': fields.String(required=True, description='Назва лікарні'),
