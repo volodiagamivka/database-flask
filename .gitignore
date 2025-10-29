@@ -115,3 +115,12 @@ config/app.yml
 .azure/
 AZURE_DEPLOYMENT_GUIDE.md
 
+# Docker
+*.log
+cpu_metrics.json
+memory_metrics.json
+container_logs.txt
+DOCKER_DEPLOYMENT.md
+QUICK_START_DOCKER.md
+scaling_log_*.txt
+
