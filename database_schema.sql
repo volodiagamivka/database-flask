@@ -1,9 +1,5 @@
--- Hospital Management System Database Schema
--- Created: October 2025
--- Author: Voloda
--- Використання бази даних
+
 USE hospitalss;
--- Видалення таблиць (якщо існують) в правильному порядку через foreign keys
 DROP TABLE IF EXISTS patient_medications;
 DROP TABLE IF EXISTS PatientStatus;
 DROP TABLE IF EXISTS patients;
@@ -11,7 +7,6 @@ DROP TABLE IF EXISTS medications;
 DROP TABLE IF EXISTS doctors;
 DROP TABLE IF EXISTS departments;
 DROP TABLE IF EXISTS hospitals;
--- Створення таблиці hospitals
 CREATE TABLE hospitals (
     hospital_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(45) NOT NULL,
@@ -20,7 +15,6 @@ CREATE TABLE hospitals (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
--- Створення таблиці departments
 CREATE TABLE departments (
     department_id INT AUTO_INCREMENT PRIMARY KEY,
     department_name VARCHAR(45) NOT NULL,
@@ -29,7 +23,6 @@ CREATE TABLE departments (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (hospital_id) REFERENCES hospitals(hospital_id) ON DELETE CASCADE
 );
--- Створення таблиці doctors
 CREATE TABLE doctors (
     doctors_id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(45) NOT NULL,
@@ -40,7 +33,6 @@ CREATE TABLE doctors (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (hospital_id) REFERENCES hospitals(hospital_id) ON DELETE CASCADE
 );
--- Створення таблиці medications
 CREATE TABLE medications (
     medications_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(45) NOT NULL,
@@ -48,7 +40,6 @@ CREATE TABLE medications (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
--- Створення таблиці patients
 CREATE TABLE patients (
     patients_id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(45) NOT NULL,
