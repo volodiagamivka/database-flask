@@ -6,10 +6,10 @@ import random
 from datetime import datetime
 import sys
 
-API_BASE_URL = "http://48.222.10.212:5000/api/v1"
+API_BASE_URL = "https://hospital-app.proudmoss-92083201.eastus.azurecontainerapps.io/api/v1"
 
 class LoadGenerator:
-    def __init__(self, base_url, num_threads=10, duration=300):
+    def __init__(self, base_url, num_threads=20, duration=300):
         self.base_url = base_url
         self.num_threads = num_threads
         self.duration = duration
@@ -50,7 +50,7 @@ class LoadGenerator:
             endpoint, method = random.choice(endpoints)
             status = self.make_request(endpoint, method)
             
-            time.sleep(random.uniform(0.1, 0.5))
+            time.sleep(random.uniform(0.05, 0.2))
         
         print(f"[{datetime.now()}] Worker {worker_id} stopped")
     
@@ -70,13 +70,14 @@ class LoadGenerator:
             last_count = current_count
             
             print(f"\n{'='*60}")
-            print(f"[{datetime.now()}] Статистика навантаження")
+            print(f"[{datetime.now()}] Load Statistics")
             print(f"{'='*60}")
-            print(f"Час роботи: {elapsed:.1f}s")
-            print(f"Всього запитів: {current_count}")
-            print(f"Помилок: {errors}")
-            print(f"RPS (запитів/сек): {rps:.2f}")
-            print(f"Success rate: {((current_count - errors) / current_count * 100):.2f}%" if current_count > 0 else "N/A")
+            print(f"Runtime: {elapsed:.1f}s")
+            print(f"Total requests: {current_count}")
+            print(f"Errors: {errors}")
+            print(f"RPS: {rps:.2f}")
+            success_rate = ((current_count - errors) / current_count * 100) if current_count > 0 else 0
+            print(f"Success rate: {success_rate:.2f}%")
             print(f"{'='*60}\n")
             
             if elapsed >= self.duration:
@@ -84,11 +85,11 @@ class LoadGenerator:
     
     def run(self):
         print(f"\n{'='*60}")
-        print(f"🚀 Запуск генератора навантаження")
+        print(f"Starting load generator")
         print(f"{'='*60}")
         print(f"API URL: {self.base_url}")
-        print(f"Кількість потоків: {self.num_threads}")
-        print(f"Тривалість: {self.duration}s")
+        print(f"Threads: {self.num_threads}")
+        print(f"Duration: {self.duration}s")
         print(f"{'='*60}\n")
         
         threads = []
@@ -108,11 +109,12 @@ class LoadGenerator:
         monitor_thread.join()
         
         print(f"\n{'='*60}")
-        print(f"✅ Тест завершено")
+        print(f"Test completed")
         print(f"{'='*60}")
-        print(f"Всього запитів: {self.request_count}")
-        print(f"Помилок: {self.error_count}")
-        print(f"Success rate: {((self.request_count - self.error_count) / self.request_count * 100):.2f}%")
+        print(f"Total requests: {self.request_count}")
+        print(f"Errors: {self.error_count}")
+        success_rate = ((self.request_count - self.error_count) / self.request_count * 100) if self.request_count > 0 else 0
+        print(f"Success rate: {success_rate:.2f}%")
         print(f"{'='*60}\n")
 
 def main():
@@ -121,7 +123,7 @@ def main():
     else:
         base_url = API_BASE_URL
     
-    num_threads = int(sys.argv[2]) if len(sys.argv) > 2 else 10
+    num_threads = int(sys.argv[2]) if len(sys.argv) > 2 else 20
     duration = int(sys.argv[3]) if len(sys.argv) > 3 else 300
     
     generator = LoadGenerator(base_url, num_threads, duration)
@@ -129,10 +131,9 @@ def main():
     try:
         generator.run()
     except KeyboardInterrupt:
-        print("\n\n⚠️ Зупинка тесту...")
+        print("\n\nStopping test...")
         generator.stop_flag = True
         time.sleep(2)
 
 if __name__ == "__main__":
     main()
-
